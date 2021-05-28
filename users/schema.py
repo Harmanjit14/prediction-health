@@ -17,17 +17,17 @@ class Query(graphene.ObjectType):
         return UserClass.objects.get(email=email)
 
 
-# class CreateUser(graphene.Mutation):
-#     user = graphene.Field(User)
+class CreateUser(graphene.Mutation):
+    user = graphene.Field(User)
 
-#     class Arguments:
-#         name = graphene.String(required=True)
-#         email = graphene.String(required=True)
+    class Arguments:
+        name = graphene.String(required=True)
+        email = graphene.String(required=True)
 
-#         def mutate(self, info, name, email):
-#             usr = UserClass.objects.create(email=email, name=name)
-#             return CreateUser(user=usr)
+    def mutate(self, info, name, email,**kwargs):
+        usr = UserClass.objects.create(email=email, name=name)
+        return CreateUser(user=usr)
 
 
-# class Mutation(graphene.ObjectType):
-#     create_user = CreateUser.Field()
+class Mutation(graphene.ObjectType):
+    create_user = CreateUser.Field()

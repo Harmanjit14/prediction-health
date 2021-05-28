@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'graphene_django',
     'whitenoise.runserver_nostatic',
     'corsheaders',
+    'users'
 ]
 
 MIDDLEWARE = [

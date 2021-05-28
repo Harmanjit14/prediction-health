@@ -8,3 +8,6 @@ class UserClass(models.Model):
                             max_length=255, null=False)
     email = models.EmailField(unique=True, blank=False, null=False)
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
+
+    def __str__(self):
+        return f"User : {self.email}"

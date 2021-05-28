@@ -14,7 +14,10 @@ class Query(graphene.ObjectType):
     getMe = graphene.Field(User, email=graphene.String(required=True))
 
     def resolve_getMe(self, info, email):
-        return UserClass.objects.get(email=email)
+        user = UserClass.objects.get(email=email)
+        if user is None:
+            raise GraphQLError("No user found")
+        return user
 
 
 class CreateUser(graphene.Mutation):

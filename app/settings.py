@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.environ.get("SECRET_KEY", "NAKLI_KEY_HERE"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.environ.get("DEBUG", "True")))
+DEBUG = bool(int(os.environ.get("DEBUG", "1")))
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1','health-prediction-backend.herokuapp.com' ]
 

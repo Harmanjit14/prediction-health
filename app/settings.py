@@ -26,7 +26,8 @@ SECRET_KEY = str(os.environ.get("SECRET_KEY", "NAKLI_KEY_HERE"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get("DEBUG", "1")))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','health-prediction-backend.herokuapp.com' ]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                 'health-prediction-backend.herokuapp.com']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -77,6 +78,7 @@ INSTALLED_APPS = [
     'spo2',
     'sleep',
     'cholestrol',
+    'prediction',
 ]
 
 MIDDLEWARE = [

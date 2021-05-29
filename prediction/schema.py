@@ -3,6 +3,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
+from meal.models import Meal
 
 
 class Query(graphene.ObjectType):
@@ -10,10 +11,76 @@ class Query(graphene.ObjectType):
 
     def resolve_predict(self, info, email):
         avgCarbs = {"low": 225, "high": 325}
-        avgproteins = {"low": 42, "high": 54}
-        avgfats = {"low": 44, "high": 77}
-        avgvitA = {"low": 0.0007, "high": 0.0009}
-        avgvitD = {"low": 0.0000375, "high": 0.00005}
-        avgvitC = {"low": 42, "high": 54}
+        avgproteins = {"low": 35, "high": 64}
+        avgfats = {"low": 44, "high": 83}
+        avgvitA = {"low": 2000, "high": 3000}
+        avgvitD = {"low": 600, "high": 700}
+        avgvitC = {"low": 45, "high": 120}
+        avgvitE = {"low": 15, "high": 18}
+        avgsodium = {"low": 1600, "high": 2800}
+        avgiron = {"low": 8.7, "high": 14.8}
+        avgpotash = {"low": 4200, "high": 5000}
+        avgcalcium = {"low": 1000, "high": 1300}
+        avgmag = {"low": 300, "high": 400}
+        avgzn = {"low": 8, "high": 11}
+        avgPhs = {"low": 700, "high": 1200}
+        avgcal = {"low": 1900, "high": 2500}
+
+        avgsleep = 7
+
+        avgbp = {"lessLow": 80, "lessHigh": 120}
+
+        userCarbs = 0
+        userproteins = 0
+        userfats = 0
+        uservitA = 0
+        uservitD = 0
+        uservitC = 0
+        uservitE = 0
+        usersodium = 0
+        useriron = 0
+        userpotash = 0
+        usercalcium = 0
+        usermag = 0
+        userzn = 0
+        userPhs = 0
+        usercal = 0
+
         user = UserClass.objects.get(email=email)
+        mealdata = Meal.objects.filter(user=user).order_by("-date")[:30]
+        if mealdata.count() < 30:
+            raise GraphQLError(
+                "Complete data for 30 days first before getting Health stats")
+        for entry in mealdata:
+            userCarbs += float(entry.carbs)
+            userproteins += float(entry.proteins)
+            usercalcium += float(entry.Calcium)
+            usercal += float(entry.omega3)
+            userfats += float(entry.fats)
+            uservitA += float(entry.vitA)
+            uservitE += float(entry.vitE)
+            uservitC += float(entry.vitC)
+            uservitD += float(entry.vitD)
+            usersodium += float(entry.Sodium)
+            useriron += float(entry.Iron)
+            userpotash += float(entry.Potassium)
+            usermag += float(entry.Magnesium)
+            userzn += float(entry.Zinc)
+            userPhs += float(entry.Phosphorus)
+
+        userCarbs = userCarbs/30
+        userproteins = userproteins / 30
+        userfats = userfats / 30
+        uservitA = uservitA / 30
+        uservitD = uservitD / 30
+        uservitC = uservitC / 30
+        uservitE = uservitE / 30
+        usersodium = usersodium / 30
+        useriron = useriron / 30
+        userpotash = userpotash / 30
+        usercalcium = usercalcium / 30
+        usermag = usermag / 30
+        userzn = userzn / 30
+        userPhs = userPhs / 30
+        usercal = usercal / 30
         ret = ""

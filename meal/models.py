@@ -9,7 +9,6 @@ class Meal(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     user = models.ForeignKey(UserClass, on_delete=models.CASCADE)
     date = models.DateField(editable=True,auto_now_add=True)
-    date.editable=True
     carbs = models.FloatField(default=0, blank=False)
     proteins = models.FloatField(default=0, blank=False)
     fats = models.FloatField(default=0, blank=False)

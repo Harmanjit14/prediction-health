@@ -7,8 +7,7 @@ import uuid
 class Meal(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     user = models.ForeignKey(UserClass, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now=True)
-    meal_name = models.CharField(max_length=255, blank=True, null=True)
+    date = models.DateField(auto_now=True,editable=True,)
     carbs = models.FloatField(default=0, blank=False)
     proteins = models.FloatField(default=0, blank=False)
     fats = models.FloatField(default=0, blank=False)

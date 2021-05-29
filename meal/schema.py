@@ -4,6 +4,7 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
+from datetime import date
 
 
 class UserMeals(DjangoObjectType):
@@ -48,17 +49,36 @@ class AddMeal(graphene.Mutation):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        m = Meal.objects.create(user=user, meal_name=kwargs.get(
-            "name"), carbs=kwargs.get("carbs"), proteins=kwargs.get("proteins"),
-            fats=kwargs.get("fats"), vitA=kwargs.get("vitA"),
-            vitC=kwargs.get("vitC"), vitD=kwargs.get("vitD"),
-            vitE=kwargs.get("vitE"), Sodium=kwargs.get("Sodium"),
-            Iron=kwargs.get("Iron"), Potassium=kwargs.get("Potassium"),
-            Calcium=kwargs.get("Calcium"),
-            Magnesium=kwargs.get("Magnesium"),
-            Zinc=kwargs.get("Zinc"),
-            Phosphorus=kwargs.get("Phosphorus"),
-            omega3=kwargs.get("omega3"))
+        m = Meal.objects.get(user=user, date=date.today())
+        if m:
+            m.carbs += float(kwargs.get("carbs", 0))
+            m.proteins += float(kwargs.get("proteins", 0))
+            m.fats += float(kwargs.get("fats", 0))
+            m.vitA += float(kwargs.get("vitA", 0))
+            m.vitC += float(kwargs.get("vitC", 0))
+            m.vitD += float(kwargs.get("vitD", 0))
+            m.vitE += float(kwargs.get("vitE", 0))
+            m.Sodium += float(kwargs.get("Sodium", 0))
+            m.Iron += float(kwargs.get("Iron", 0))
+            m.Potassium += float(kwargs.get("Potassium", 0))
+            m.Calcium += float(kwargs.get("Calcium", 0))
+            m.Magnesium += float(kwargs.get("Magnesium", 0))
+            m.Zinc += float(kwargs.get("Zinc", 0))
+            m.Phosphorus += float(kwargs.get("Phosphorus", 0))
+            m.omega3 += float(kwargs.get("omega3", 0))
+            m.save()
+        else:
+            m = Meal.objects.create(user=user, meal_name=kwargs.get(
+                "name"), carbs=kwargs.get("carbs"), proteins=kwargs.get("proteins"),
+                fats=kwargs.get("fats"), vitA=kwargs.get("vitA"),
+                vitC=kwargs.get("vitC"), vitD=kwargs.get("vitD"),
+                vitE=kwargs.get("vitE"), Sodium=kwargs.get("Sodium"),
+                Iron=kwargs.get("Iron"), Potassium=kwargs.get("Potassium"),
+                Calcium=kwargs.get("Calcium"),
+                Magnesium=kwargs.get("Magnesium"),
+                Zinc=kwargs.get("Zinc"),
+                Phosphorus=kwargs.get("Phosphorus"),
+                omega3=kwargs.get("omega3"))
         return AddMeal(meal=m)
 
 

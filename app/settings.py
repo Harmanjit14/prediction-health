@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'users',
     'meal',
+    'water',
 ]
 
 MIDDLEWARE = [

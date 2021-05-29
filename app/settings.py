@@ -74,6 +74,9 @@ INSTALLED_APPS = [
     'meal',
     'water',
     'bp',
+    'spo2',
+    'sleep',
+    'cholestrol',
 ]
 
 MIDDLEWARE = [

@@ -7,7 +7,7 @@ import uuid
 class Sleep(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     user = models.ForeignKey(UserClass, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateField(auto_now=True,editable=True)
     sleephours = models.FloatField(default=0, blank=False)
 
     def __str__(self):

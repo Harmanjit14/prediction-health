@@ -1,13 +1,14 @@
 from django.db import models
 from users.models import UserClass
 import uuid
+from datetime import date
 # Create your models here.
 
 
 class Meal(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     user = models.ForeignKey(UserClass, on_delete=models.CASCADE)
-    date = models.DateField(auto_now=True,editable=True,)
+    date = models.DateField(editable=True, default=date.today(), blank=False)
     carbs = models.FloatField(default=0, blank=False)
     proteins = models.FloatField(default=0, blank=False)
     fats = models.FloatField(default=0, blank=False)

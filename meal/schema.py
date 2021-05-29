@@ -5,7 +5,7 @@ from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
 from datetime import date
-
+from django.utils.timezone import now
 
 class UserMeals(DjangoObjectType):
     class Meta:

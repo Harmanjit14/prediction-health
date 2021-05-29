@@ -7,7 +7,7 @@ from meal.models import Meal
 
 
 class Query(graphene.ObjectType):
-    predict = graphene.String(email=graphene.string())
+    predict = graphene.String(email=graphene.String())
 
     def resolve_predict(self, info, email):
         avgCarbs = {"low": 225, "high": 325}

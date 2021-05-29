@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Cholestrol',
+            name='DailySpo2',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
                 ('date', models.DateTimeField(auto_now=True)),
-                ('cholestrollevel', models.FloatField(default=0)),
+                ('level', models.IntegerField(default=0)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.userclass')),
             ],
         ),

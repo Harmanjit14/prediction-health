@@ -28,7 +28,6 @@ class AddMeal(graphene.Mutation):
 
     class Arguments:
         email = graphene.String()
-        name = graphene.String()
         carbs = graphene.Float()
         proteins = graphene.Float()
         fats = graphene.Float()
@@ -68,8 +67,7 @@ class AddMeal(graphene.Mutation):
             m.omega3 += float(kwargs.get("omega3", 0))
             m.save()
         else:
-            m = Meal.objects.create(user=user, meal_name=kwargs.get(
-                "name"), carbs=kwargs.get("carbs"), proteins=kwargs.get("proteins"),
+            m = Meal.objects.create(user=user, carbs=kwargs.get("carbs"), proteins=kwargs.get("proteins"),
                 fats=kwargs.get("fats"), vitA=kwargs.get("vitA"),
                 vitC=kwargs.get("vitC"), vitD=kwargs.get("vitD"),
                 vitE=kwargs.get("vitE"), Sodium=kwargs.get("Sodium"),

@@ -34,8 +34,13 @@ class AddWater(graphene.Mutation):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        w = WaterIntake.objects.filter(user=user).get_or_create(date=date.today())
-        w.quantitylitre = w.quantitylitre + int(kwargs.get("quantitylitre"))
+        w = WaterIntake.objects.get(user=user, date=date.today())
+        if w:
+            w.quantitylitre = w.quantitylitre + \
+                int(kwargs.get("quantitylitre"))
+        else:
+            w = WaterIntake.objects.create(
+                user=user, quantitylitre=kwargs.get("quantitylitre"))
         return AddWater(water=w)
 
 

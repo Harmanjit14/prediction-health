@@ -84,3 +84,46 @@ class Query(graphene.ObjectType):
         userPhs = userPhs / 30
         usercal = usercal / 30
         ret = ""
+        if userCarbs < avgCarbs.get("low") or userCarbs > avgCarbs.get("high"):
+            if userCarbs < avgCarbs.get("low"):
+                ret += "Low carbs intake:- impairment of physical activity,lipid abnormalities, and risk of cardiac contractile function impairment \n"
+            else:
+                ret += "high carbs intake:- Obesity and risk of Non-insulin dependent diabetes\n"
+
+        if userproteins < avgproteins.get("low") or userproteins > avgproteins.get("high"):
+            if userproteins < avgproteins.get("low"):
+                ret += "Low protein intake:- risk of fatty liver, hair loss, loss of muscle mass\n"
+            else:
+                ret += "high protein intake:- Constipation, Diarrhea, Dehydration, risk of Kidney damage\n"
+
+        if usercalcium < avgcalcium.get("low") or usercalcium > avgcalcium.get("high"):
+            if usercalcium < avgcalcium.get("low"):
+                ret += "Low calcium intake:- risk of hypocalcemia\n"
+            else:
+                ret += "high calcium intake:-risk of Osteoporosis, high risk of Kidney stones\n"
+
+        if uservitA < avgvitA.get("low") or uservitA > avgvitA.get("high"):
+            if uservitA < avgvitA.get("low"):
+                ret += "Low vit-A intake:- risk of Night Blindness, Infertility and Trouble Conceiving, Throat and Chest Infections, Poor Wound Healing\n"
+            else:
+                ret += "high vit-A intake:-risk of liver damage, high risk of Kidney damage\n"
+
+        if uservitC < avgvitC.get("low") or uservitC > avgvitC.get("high"):
+            if uservitC < avgvitC.get("low"):
+                ret += "Low vit-C intake:- pain in the limbs, and especially the legs, risk of scurvy\n"
+            else:
+                ret += "high vit-C intake:-Headache, risk of Insomnia, Diarrhea, Nausea\n"
+
+        if uservitE < avgvitE.get("low") or uservitE > avgvitE.get("high"):
+            if uservitE < avgvitE.get("low"):
+                ret += "Low vit-E intake:- short bowel syndrome\n"
+            else:
+                ret += "high vit-E intake:- risk of blood thinning\n"
+
+        if usersodium < avgsodium.get("low") or usersodium > avgsodium.get("high"):
+            if usersodium < avgsodium.get("low"):
+                ret += "Low sodium intake:- Headache, Confusion,Loss of energy, drowsiness and fatigue.\n"
+            else:
+                ret += "high sodium intake:- risk of  high blood pressure, heart disease\n"
+
+        return ret

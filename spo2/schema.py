@@ -5,6 +5,7 @@ from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
 
+
 class UserSPO2(DjangoObjectType):
     class Meta:
         model = DailySpo2
@@ -26,16 +27,15 @@ class AddSPO2(graphene.Mutation):
 
     class Arguments:
         email = graphene.String()
-        name = graphene.String()
         level = graphene.Int()
 
     def mutate(self, info, **kwargs):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        s = DailySpo2.objects.create(user=user, 
-            level=kwargs.get("level"),
-            )
+        s = DailySpo2.objects.create(user=user,
+                                     level=kwargs.get("level"),
+                                     )
         return AddSPO2(newlevel=s)
 
 

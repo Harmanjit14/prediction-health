@@ -5,6 +5,7 @@ from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
 
+
 class UserBP(DjangoObjectType):
     class Meta:
         model = DailyBp
@@ -26,7 +27,6 @@ class AddBP(graphene.Mutation):
 
     class Arguments:
         email = graphene.String()
-        name = graphene.String()
         systolic = graphene.Float()
         diastolic = graphene.Float()
 
@@ -34,10 +34,10 @@ class AddBP(graphene.Mutation):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        b = DailyBp.objects.create(user=user, 
-            systolic=kwargs.get("systolic"),
-            diastolic=kwargs.get("diastolic"),
-            )
+        b = DailyBp.objects.create(user=user,
+                                   systolic=kwargs.get("systolic"),
+                                   diastolic=kwargs.get("diastolic"),
+                                   )
         return AddBP(newbp=b)
 
 

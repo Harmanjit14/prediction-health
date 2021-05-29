@@ -5,6 +5,7 @@ from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
 
+
 class Usercholestrol(DjangoObjectType):
     class Meta:
         model = Cholestrol
@@ -26,16 +27,15 @@ class AddCholestrol(graphene.Mutation):
 
     class Arguments:
         email = graphene.String()
-        name = graphene.String()
-        cholestrollevel = graphene.Int()
+        cholestrollevel = graphene.Float()
 
     def mutate(self, info, **kwargs):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        ch = Cholestrol.objects.create(user=user, 
-            cholestrollevel=kwargs.get("cholestrollevel"))
-        return AddCholestrol(newsleep=s)
+        ch = Cholestrol.objects.create(user=user,
+                                       cholestrollevel=kwargs.get("cholestrollevel"))
+        return AddCholestrol(newsleep=ch)
 
 
 class Mutation(graphene.ObjectType):

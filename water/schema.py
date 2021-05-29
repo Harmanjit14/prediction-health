@@ -4,6 +4,8 @@ import graphene
 from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
+from datetime import date
+
 
 class UserWater(DjangoObjectType):
     class Meta:
@@ -26,15 +28,14 @@ class AddWater(graphene.Mutation):
 
     class Arguments:
         email = graphene.String()
-        name = graphene.String()
         quantitylitre = graphene.Int()
 
     def mutate(self, info, **kwargs):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        w = WaterIntake.objects.create(user=user, 
-            quantitylitre=kwargs.get("quantitylitre"))
+        w = WaterIntake.objects.filter(user=user).get_or_create(date=date.today())
+        w.quantitylitre = w.quantitylitre + int(kwargs.get("quantitylitre"))
         return AddWater(water=w)
 
 

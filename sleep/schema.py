@@ -5,6 +5,7 @@ from graphene_django import DjangoObjectType
 from graphql import GraphQLError
 from django.db.models import Q
 
+
 class UserSleep(DjangoObjectType):
     class Meta:
         model = Sleep
@@ -26,15 +27,14 @@ class AddSleep(graphene.Mutation):
 
     class Arguments:
         email = graphene.String()
-        name = graphene.String()
         sleephours = graphene.Int()
 
     def mutate(self, info, **kwargs):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        s = Sleep.objects.create(user=user, 
-            sleephours=kwargs.get("sleephours"))
+        s = Sleep.objects.create(user=user,
+                                 sleephours=kwargs.get("sleephours"))
         return AddSleep(newsleep=s)
 
 

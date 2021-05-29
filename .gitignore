@@ -1,10 +1,10 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-# migrations/
-# **/migrations/*
-# **/migrations/**
-# !**/migrations
-# !**/migrations/__init__.py
+migrations/
+**/migrations/*
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
 *.py[cod]
 *$py.class
 

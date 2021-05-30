@@ -34,8 +34,9 @@ class AddSleep(graphene.Mutation):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        s = Sleep.objects.get(user=user, date=date.today())
-        if s:
+        s = Sleep.objects.filter(user=user, date=date.today()).count()
+        if s > 0:
+            s = Sleep.objects.get(user=user, date=date.today())
             s.sleephours += float(kwargs.get("sleephours", 0))
             s.save()
         else:

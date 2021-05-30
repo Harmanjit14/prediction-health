@@ -48,8 +48,9 @@ class AddMeal(graphene.Mutation):
         user = UserClass.objects.get(email=kwargs.get("email"))
         if user is None:
             raise GraphQLError("No user found")
-        m = Meal.objects.get(user=user, date=date.today())
-        if m:
+        m = Meal.objects.filter(user=user, date=date.today()).count()
+        if m>0:
+            m = Meal.objects.get(user=user, date=date.today())
             m.carbs += float(kwargs.get("carbs", 0))
             m.proteins += float(kwargs.get("proteins", 0))
             m.fats += float(kwargs.get("fats", 0))
